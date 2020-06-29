@@ -1,0 +1,66 @@
+1. CREATE DATABASE myshop;
+
+2. 
+--Tabel Users :
+CREATE TABLE `users` (
+  `id` int PRIMARY KEY,
+  `name` varchar(255) ,
+  `email` varchar(255) ,
+  `password` varchar(255) 
+)
+
+--Tabel Items
+CREATE TABLE `items` (
+  `id` int PRIMARY KEY,
+  `name` varchar(255) ,
+  `description` varchar(255) ,
+  `price` int ,
+  `stock` int ,
+  `category_id` int ,
+  FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
+)
+
+--Tabel Categories
+CREATE TABLE `categories` (
+  `id` int PRIMARY KEY,
+  `name` varchar(255)
+)
+
+3. 
+--Insert Users
+INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
+(1, 'John Doe', 'john@doe.com', 'john123'),
+(2, 'Jane Doe', 'jane@doe.com', 'jenita123');
+
+--insert categories
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'gadget'),
+(2, 'cloth'),
+(3, 'men'),
+(4, 'women'),
+(5, 'branded');
+
+--insert items
+INSERT INTO `items` (`id`, `name`, `description`, `price`, `stock`, `category_id`) VALUES
+(1, 'Sumsang b50', 'hape keren dari merek sumsang', 4000000, 100, 1),
+(2, 'Uniklooh', 'baju keren dari brand ternama', 500000, 50, 2),
+(3, 'IMHO Watch', 'jam tangan anak yang jujur banget', 2000000, 10, 1);
+
+
+4. 
+a. SELECT `name`,`email` FROM `users`;
+b.  -SELECT * FROM items WHERE price > 1000000;
+    -SELECT * FROM `items` WHERE `name` LIKE '%uniklo%';
+c.  SELECT  
+            `a`.`name`,
+            `a`.`description`,
+            `a`.`price`,
+            `a`.`stock`,
+            `a`.`category_id`,
+            `b`.`name` AS `kategori`
+	FROM 
+            `items` `a`
+	LEFT JOIN 
+            `categories` `b` ON `a`.`category_id` = `b`.`id`;
+
+5. UPDATE `items` SET `price` = '2500000' WHERE `items`.`id` = 1;
